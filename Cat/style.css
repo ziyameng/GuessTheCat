@@ -30,7 +30,7 @@ body {
 }
 
 /*GALLERY DESIGN*/
-.gallery {
+#breed-container {
   display: grid;
   grid-template-columns: repeat(5, 1fr);
   column-gap: 4.8rem;
@@ -38,7 +38,7 @@ body {
   margin: 4.8rem 0 4.8rem 0;
 }
 
-.cat-card {
+.cat-info {
   border-style: solid;
 }
 
@@ -59,6 +59,12 @@ body {
   gap: 2.4rem;
   margin-bottom: 2.4rem;
   font-size: 1.8rem;
+}
+
+.crossed-out {
+  text-decoration: line-through;
+  color: #ccc;
+  opacity: 0.5;
 }
 
 button {

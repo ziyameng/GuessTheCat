@@ -26,129 +26,25 @@
     </header>
 
     <main>
-      <section class="gallery">
-        <div class="cat-card">
-          <h3 class="cat-name"></h3>
-          <p class="features"></p>
-        </div>
-
-        <div class="cat-card">
-          <h3 class="cat-name"></h3>
-          <p class="features"></p>
-        </div>
-
-        <div class="cat-card">
-          <h3 class="cat-name">Cat 1</h3>
-          <p class="features">
-            Lorem ipsum dolor sit amet consectetur, adipisicing elit. Minima
-            veritatis inventore recusandae dolorum quisquam blanditiis
-            assumenda, quod, aperiam deserunt repellat eveniet optio voluptas
-            illum ea sequi magni exercitationem laboriosam reprehenderit?
-          </p>
-        </div>
-
-        <div class="cat-card">
-          <h3 class="cat-name">Cat 1</h3>
-          <p class="features">
-            Lorem ipsum dolor sit amet consectetur, adipisicing elit. Minima
-            veritatis inventore recusandae dolorum quisquam blanditiis
-            assumenda, quod, aperiam deserunt repellat eveniet optio voluptas
-            illum ea sequi magni exercitationem laboriosam reprehenderit?
-          </p>
-        </div>
-
-        <div class="cat-card">
-          <h3 class="cat-name">Cat 1</h3>
-          <p class="features">
-            Lorem ipsum dolor sit amet consectetur, adipisicing elit. Minima
-            veritatis inventore recusandae dolorum quisquam blanditiis
-            assumenda, quod, aperiam deserunt repellat eveniet optio voluptas
-            illum ea sequi magni exercitationem laboriosam reprehenderit?
-          </p>
-        </div>
-
-        <div class="cat-card">
-          <h3 class="cat-name">Cat 1</h3>
-          <p class="features">
-            Lorem ipsum dolor sit amet consectetur, adipisicing elit. Minima
-            veritatis inventore recusandae dolorum quisquam blanditiis
-            assumenda, quod, aperiam deserunt repellat eveniet optio voluptas
-            illum ea sequi magni exercitationem laboriosam reprehenderit?
-          </p>
-        </div>
-
-        <div class="cat-card">
-          <h3 class="cat-name">Cat 1</h3>
-          <p class="features">
-            Lorem ipsum dolor sit amet consectetur, adipisicing elit. Minima
-            veritatis inventore recusandae dolorum quisquam blanditiis
-            assumenda, quod, aperiam deserunt repellat eveniet optio voluptas
-            illum ea sequi magni exercitationem laboriosam reprehenderit?
-          </p>
-        </div>
-
-        <div class="cat-card">
-          <h3 class="cat-name">Cat 1</h3>
-          <p class="features">
-            Lorem ipsum dolor sit amet consectetur, adipisicing elit. Minima
-            veritatis inventore recusandae dolorum quisquam blanditiis
-            assumenda, quod, aperiam deserunt repellat eveniet optio voluptas
-            illum ea sequi magni exercitationem laboriosam reprehenderit?
-          </p>
-        </div>
-
-        <div class="cat-card">
-          <h3 class="cat-name">Cat 1</h3>
-          <p class="features">
-            Lorem ipsum dolor sit amet consectetur, adipisicing elit. Minima
-            veritatis inventore recusandae dolorum quisquam blanditiis
-            assumenda, quod, aperiam deserunt repellat eveniet optio voluptas
-            illum ea sequi magni exercitationem laboriosam reprehenderit?
-          </p>
-        </div>
-
-        <div class="cat-card">
-          <h3 class="cat-name">Cat 1</h3>
-          <p class="features">
-            Lorem ipsum dolor sit amet consectetur, adipisicing elit. Minima
-            veritatis inventore recusandae dolorum quisquam blanditiis
-            assumenda, quod, aperiam deserunt repellat eveniet optio voluptas
-            illum ea sequi magni exercitationem laboriosam reprehenderit?
-          </p>
-        </div>
-      </section>
+      <section id="breed-container"></section>
 
       <section class="ask-question">
         <div>
           <label for="select-feature">Is your cat</label>
-          <select id="select-feature" name="select-feature" required>
-            <option value="">Please choose one option</option>
-
-            <option value="Intelligent">Intelligent</option>
-            <option value="Interactive">Interactive</option>
-            <option value="Lively">Lively</option>
-            <option value="Playful">Playful</option>
-            <option value="Sensitive">Sensitive</option>
-            <option value="Affectionate">Affectionate</option>
-            <option value="Curious">Curious</option>
-            <option value="Social">Social</option>
-            <option value="Independent">Independent</option>
-            <option value="Clever">Clever</option>
-            <option value="Trainable">Trainable</option>
-            <option value="Sweet">Sweet</option>
-            <option value="Loyal">Loyal</option>
-            <option value="Sedate">Sedate</option>
-            <option value="Mischievous">Mischievous</option>
-            <option value="Loving">Loving</option>
+          <select id="select-feature" class="select-feature">
+            <option>Please choose one option</option>
           </select>
         </div>
 
-        <button class="btn-ask">Ask</button>
+        <button id="btn-ask">Ask</button>
       </section>
 
       <section class="check-answer">
-        <div id="breed">
-          <!-- <option value="Chantilly Tiffany">Chantilly Tiffany</option>
+        <div>
+          <label>Your cat is</label>
+          <select id="breed" class="breed">
+            <option>Cat breed</option>
+            <!-- <option value="Chantilly Tiffany">Chantilly Tiffany</option>
             <option value="American Bobtail">American Bobtail</option>
             <option value="American Curl">American Curl</option>
             <option value="Kurlilian">Kurlilian</option>
@@ -158,6 +54,7 @@
             <option value="Persian">Persian</option>
             <option value="Devon Rex">Devon Rex</option>
             <option value="Scottish Fold">Scottish Fold</option> -->
+          </select>
         </div>
 
         <button class="btn-guess">Guess</button>
