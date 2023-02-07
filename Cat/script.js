@@ -1,85 +1,74 @@
-//fetch data frothe api
-/**TASK1: fetch the name & temperament from the cat api**/
+/**TASK1: Fetch data from the cat api**/
 async function fetchCatInformation() {
   const response = await fetch("https://api.thecatapi.com/v1/breeds");
   const data = await response.json();
 
   // Select 10 random items from the data object
   const randomBreeds = data.sort(() => 0.5 - Math.random()).slice(0, 10);
-
   const breedNames = randomBreeds.map((breed) => breed.name);
 
-  createBreedList(breedNames);
+  //call functions
   createBreedBoxes(randomBreeds);
-
-  //   for (const breed of randomBreeds) {
-  //     console.log(breed.name);
-  //     createBreedList(breed.name);
-  //   }
-
-  // for (const breed of randomBreeds) {
-  //   console.log("Cat Breed Name: ", breed.name);
-  //     console.log("Cat Breed Temperament: ", breed.temperament);
-  //     console.log("---");
-  //   }
-
   selectCat();
 }
 
+//Start
 fetchCatInformation();
 
-/** TASK2: create breed list **/
-function createBreedList(breedList) {
-  document.getElementById("breed").innerHTML = `
- 
-  ${breedList.map((name) => `<option>${name}</option>`).join("")}
-
-  `;
-}
-
-/** TASK3: push in  fo for each cat into div box **/
+/** TASK2: create contents **/
 function createBreedBoxes(breeds) {
   const breedContainer = document.getElementById("breed-container");
+
+  //make the temperament list no duplication: loop through all temperament descriptions, cut off duplication and keep unique temperament for the select-list
   const uniqueTemperaments = Array.from(
     new Set(
-      breeds.flatMap((b) =>
-        b.temperament.split(", ").map((word) => word.replace(/,$/, ""))
+      breeds.flatMap((breed) =>
+        breed.temperament.split(", ").map((word) => word.replace(/,$/, ""))
       )
     )
   );
-  console.log(uniqueTemperaments);
 
+  //create cat-info-card
   for (const breed of breeds) {
+    //container
     const breedDiv = document.createElement("div");
     breedDiv.className = "cat-info";
+    breedContainer.appendChild(breedDiv);
 
+    //cat name
     const breedName = document.createElement("h2");
     breedName.className = "cat-name";
     breedName.textContent = breed.name;
     breedDiv.appendChild(breedName);
 
+    //cat temperament
     const breedTemperament = document.createElement("p");
     breedTemperament.className = "cat-temperament";
     breedTemperament.textContent = breed.temperament;
-
     breedDiv.appendChild(breedTemperament);
-
-    breedContainer.appendChild(breedDiv);
   }
 
-  /**TASK4: temperament make to array without duplication and push it to the list **/ //
+  // Create check list: push unique temperament without duplication  to the select list(check list)
   const checkList = document.getElementById("select-feature");
   for (const temperament of uniqueTemperaments) {
-    const option = document.createElement("option");
-    option.textContent = temperament;
-    checkList.appendChild(option);
+    const temOption = document.createElement("option");
+    temOption.textContent = temperament;
+    checkList.appendChild(temOption);
+  }
+
+  //Create answer list: push breed name to the select list(answer list)
+  const ansList = document.getElementById("breed");
+  for (const breed of breeds) {
+    const nameOption = document.createElement("option");
+    nameOption.textContent = breed.name;
+    ansList.appendChild(nameOption);
   }
 }
 
-/**TASK5: TMR: game theory **/
+/**TASK3: game theory **/
 let selectedCat = null;
 
-// Randomly select one cat from the breed container div
+// Computer's choice: randomly select one cat from the breed container div
 function selectCat() {
   const breedContainer = document.getElementById("breed-container");
   const cats = breedContainer.getElementsByClassName("cat-info");
@@ -93,27 +82,15 @@ document.getElementById("btn-ask").addEventListener("click", () => {
     "select.select-feature"
   ).value;
 
-  console.log("Selected temperament:", selectedTemperament);
-
-  // Cross out the cats which don't have the selected temperament
+  // Cross out the cats that don't fit the guess
   const catInfoCards = document.querySelectorAll(".cat-info");
-
-  //   for (const catInfoCard of catInfoCards) {
-  //     const catTemperaments =
-  //       catInfoCard.querySelector("p.cat-temperament").textContent;
-  //     if (catTemperaments.includes(selectedTemperament)) {
-  //       if (!catInfoCard.classList.contains("crossed-out")) {
-  //         catInfoCard.classList.add("crossed-out");
-  //       }
-  //     }
-  //   }
 
   if (
     selectedCat
       .querySelector(".cat-temperament")
       .textContent.includes(selectedTemperament)
   ) {
-    alert("YES");
+    alert(`Yes, my cat is ${selectedTemperament}`);
 
     catInfoCards.forEach((catInfoCard) => {
       if (
@@ -127,7 +104,7 @@ document.getElementById("btn-ask").addEventListener("click", () => {
       }
     });
   } else {
-    alert("Nope");
+    alert(`No, my cat is not ${selectedTemperament}`);
     catInfoCards.forEach((catInfoCard) => {
       if (
         catInfoCard
@@ -142,7 +119,7 @@ document.getElementById("btn-ask").addEventListener("click", () => {
   }
 });
 
-//Submit final guess
+//Submit final answer
 const btnGuess = document.querySelector(".btn-guess");
 
 btnGuess.addEventListener("click", () => {
@@ -157,4 +134,10 @@ btnGuess.addEventListener("click", () => {
   } else {
     alert("Oops, wrong guess:(");
   }
+});
+
+//refresh quit game
+const refresh = document.querySelector(".refresh");
+refresh.addEventListener("click", function () {
+  window.location.reload();
 });

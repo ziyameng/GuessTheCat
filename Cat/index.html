@@ -26,6 +26,7 @@
     </header>
 
     <main>
+      <section id="outcome"></section>
       <section id="breed-container"></section>
 
       <section class="ask-question">
@@ -41,27 +42,18 @@
 
       <section class="check-answer">
         <div>
-          <label>Your cat is</label>
+          <label for="breed">Your cat is</label>
           <select id="breed" class="breed">
             <option>Cat breed</option>
-            <!-- <option value="Chantilly Tiffany">Chantilly Tiffany</option>
-            <option value="American Bobtail">American Bobtail</option>
-            <option value="American Curl">American Curl</option>
-            <option value="Kurlilian">Kurlilian</option>
-            <option value="Aegean">Aegean</option>
-            <option value="Malayan">Malayan</option>
-            <option value="Norwegian Forest Cat">Norwegian Forest Cat</option>
-            <option value="Persian">Persian</option>
-            <option value="Devon Rex">Devon Rex</option>
-            <option value="Scottish Fold">Scottish Fold</option> -->
           </select>
         </div>
 
         <button class="btn-guess">Guess</button>
       </section>
 
-      <section class="quit">
-        <button class="btn-guess">QUIT</button>
+      <section class="btn">
+        <button class="btn-quit">Quit</button>
+        <button class="refresh">Refresh</button>
       </section>
     </main>
     <script src="script.js"></script>
