@@ -5,7 +5,9 @@ async function fetchCatInformation() {
 
   // Select 10 random items from the data object
   const randomBreeds = data.sort(() => 0.5 - Math.random()).slice(0, 10);
-  const breedNames = randomBreeds.map((breed) => breed.name);
+
+  console.log(randomBreeds);
+  // const breedNames = randomBreeds.map((breed) => breed.name);
 
   //call functions
   createBreedBoxes(randomBreeds);
@@ -41,6 +43,14 @@ function createBreedBoxes(breeds) {
     breedName.textContent = breed.name;
     breedDiv.appendChild(breedName);
 
+    /*
+    cat picture: try to fetch cat image but Cross-Origin Read Blocking (CORB) error:
+    
+    const breedImg = document.createElement("img");
+    breedImg.className = "cat-img";
+    breedImg.src = `https://api.thecatapi.com/v1/images/search?breed_ids={breed.id}`;
+    breedDiv.appendChild(breedImg);*/
+
     //cat temperament
     const breedTemperament = document.createElement("p");
     breedTemperament.className = "cat-temperament";
@@ -67,6 +77,8 @@ function createBreedBoxes(breeds) {
 
 /**TASK3: game theory **/
 let selectedCat = null;
+let askCounter = 0;
+let guessCounter = 0;
 
 // Computer's choice: randomly select one cat from the breed container div
 function selectCat() {
@@ -78,6 +90,7 @@ function selectCat() {
 
 // Listen to the click event on the "ask" button
 document.getElementById("btn-ask").addEventListener("click", () => {
+  askCounter++;
   const selectedTemperament = document.querySelector(
     "select.select-feature"
   ).value;
@@ -123,21 +136,53 @@ document.getElementById("btn-ask").addEventListener("click", () => {
 const btnGuess = document.querySelector(".btn-guess");
 
 btnGuess.addEventListener("click", () => {
+  guessCounter++;
   const selectedBreed = document.querySelector("#breed").value;
-
   console.log("selectedBreed:", selectedBreed);
 
   const selectedCatName = selectedCat.querySelector(".cat-name").textContent;
 
+  const outcome = document.getElementById("outcome");
+  let outcomeMessage = "";
+
+  const catInfoCards = document.querySelectorAll(".cat-info");
+
   if (selectedBreed === selectedCatName) {
-    alert(`Congrats! Correct Guess! The Cat is ${selectedCatName}`);
+    outcomeMessage = `You win:), 
+    You asked ${askCounter} times questions and made ${guessCounter} times guess
+    `;
+
+    catInfoCards.forEach((catInfoCard) => {
+      catInfoCard.classList.add("win");
+    });
   } else {
-    alert("Oops, wrong guess:(");
+    outcomeMessage = `You lose:(, 
+      You asked ${askCounter} times questions and made ${guessCounter} times guess`;
+
+    catInfoCards.forEach((catInfoCard) => {
+      catInfoCard.classList.add("crossed-out");
+    });
   }
+
+  const outcomeDiv = document.createElement("div");
+  outcomeDiv.className = "outcome-div";
+  outcomeDiv.innerHTML = outcomeMessage;
+  outcome.appendChild(outcomeDiv);
 });
 
-//refresh quit game
+//refresh game
 const refresh = document.querySelector(".refresh");
-refresh.addEventListener("click", function () {
+refresh.addEventListener("click", () => {
   window.location.reload();
+});
+
+//quit game
+const quit = document.querySelector(".quit");
+quit.addEventListener("click", () => {
+  const outcome = document.getElementById("outcome");
+  const outcomeDiv = document.createElement("div");
+  outcomeDiv.className = "outcome-div";
+  outcomeDiv.innerHTML = `You did not guess the breed:(,
+    You asked ${askCounter} questions and made ${guessCounter} guess`;
+  outcome.appendChild(outcomeDiv);
 });
