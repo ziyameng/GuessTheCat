@@ -6,9 +6,6 @@ async function fetchCatInformation() {
   // Select 10 random items from the data object
   const randomBreeds = data.sort(() => 0.5 - Math.random()).slice(0, 10);
 
-  console.log(randomBreeds);
-  // const breedNames = randomBreeds.map((breed) => breed.name);
-
   //call functions
   createBreedBoxes(randomBreeds);
   selectCat();
@@ -21,7 +18,7 @@ fetchCatInformation();
 function createBreedBoxes(breeds) {
   const breedContainer = document.getElementById("breed-container");
 
-  //make the temperament list no duplication: loop through all temperament descriptions, cut off duplication and keep unique temperament for the select-list
+  //Create the temperament list without duplication: loop through all temperament descriptions, cut off duplication and keep unique temperament
   const uniqueTemperaments = Array.from(
     new Set(
       breeds.flatMap((breed) =>
@@ -30,7 +27,7 @@ function createBreedBoxes(breeds) {
     )
   );
 
-  //create cat-info-card
+  //Create cat-info-card
   for (const breed of breeds) {
     //container
     const breedDiv = document.createElement("div");
@@ -43,8 +40,7 @@ function createBreedBoxes(breeds) {
     breedName.textContent = breed.name;
     breedDiv.appendChild(breedName);
 
-    /*
-    cat picture: try to fetch cat image but Cross-Origin Read Blocking (CORB) error:
+    /*cat picture: try to fetch cat image but Cross-Origin Read Blocking (CORB) error:
     
     const breedImg = document.createElement("img");
     breedImg.className = "cat-img";
@@ -75,8 +71,9 @@ function createBreedBoxes(breeds) {
   }
 }
 
-/**TASK3: game theory **/
+/***TASK3: game theory ***/
 let selectedCat = null;
+//set two counters for asking and guessing times
 let askCounter = 0;
 let guessCounter = 0;
 
@@ -85,7 +82,10 @@ function selectCat() {
   const breedContainer = document.getElementById("breed-container");
   const cats = breedContainer.getElementsByClassName("cat-info");
   selectedCat = cats[Math.floor(Math.random() * cats.length)];
+
   console.log("Selected cat:", selectedCat);
+
+  selectedCat.classList.add("selected");
 }
 
 // Listen to the click event on the "ask" button
@@ -145,23 +145,19 @@ btnGuess.addEventListener("click", () => {
   const outcome = document.getElementById("outcome");
   let outcomeMessage = "";
 
-  const catInfoCards = document.querySelectorAll(".cat-info");
+  const selectedCatInfo = document.querySelector(".selected");
 
   if (selectedBreed === selectedCatName) {
     outcomeMessage = `You win:), 
-    You asked ${askCounter} times questions and made ${guessCounter} times guess
+    You asked ${askCounter} question(s) and made ${guessCounter} guess(es)
     `;
+    alert(outcomeMessage);
 
-    catInfoCards.forEach((catInfoCard) => {
-      catInfoCard.classList.add("win");
-    });
+    selectedCatInfo.classList.add("win");
   } else {
     outcomeMessage = `You lose:(, 
-      You asked ${askCounter} times questions and made ${guessCounter} times guess`;
-
-    catInfoCards.forEach((catInfoCard) => {
-      catInfoCard.classList.add("crossed-out");
-    });
+        You asked ${askCounter} question(s) and made ${guessCounter} guess(es)`;
+    alert(outcomeMessage);
   }
 
   const outcomeDiv = document.createElement("div");
@@ -170,7 +166,7 @@ btnGuess.addEventListener("click", () => {
   outcome.appendChild(outcomeDiv);
 });
 
-//refresh game
+//restart game
 const refresh = document.querySelector(".refresh");
 refresh.addEventListener("click", () => {
   window.location.reload();
@@ -183,6 +179,6 @@ quit.addEventListener("click", () => {
   const outcomeDiv = document.createElement("div");
   outcomeDiv.className = "outcome-div";
   outcomeDiv.innerHTML = `You did not guess the breed:(,
-    You asked ${askCounter} questions and made ${guessCounter} guess`;
+    You asked ${askCounter} question(s) and made ${guessCounter} guess(es)`;
   outcome.appendChild(outcomeDiv);
 });
